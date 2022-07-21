@@ -7,10 +7,14 @@ public class enemyDataHolder : MonoBehaviour
     private int health = 2;
 
     private float moveSpeed;
+    private float speedDown;
+    private float decrementSpeed;
+    private bool isDead = false;
 
     private void Start()
     {
-        transform.parent.GetComponent<enemyController>().getMoveSpeed();
+        moveSpeed = transform.parent.GetComponent<enemyController>().getMoveSpeed();
+        decrementSpeed = transform.parent.GetComponent<enemyController>().getDecrementSpeed();
 
         //TODO: start running animation for enemy
         //animator.SetTrigger("Run")
@@ -18,7 +22,12 @@ public class enemyDataHolder : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+            moveSpeed -= decrementSpeed * Time.deltaTime;
+        if (moveSpeed <= 0)
+            this.enabled = false;
         
+        moveEnemy();
     }
 
     public void animateHit()
@@ -34,7 +43,13 @@ public class enemyDataHolder : MonoBehaviour
         {
             //mask move up, animator speed down
             //start roll and fall
+            isDead = true;
         }
+    }
+
+    private void moveEnemy()
+    {
+        transform.Translate(new Vector3(0, 0, moveSpeed * Time.deltaTime));
     }
 
     public void decrementHealth()

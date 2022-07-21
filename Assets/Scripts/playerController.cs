@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour
     private GameObject closestEnemy;
     void Update()
     {
-        //TapToStart
+        //TODO: TapToStart
 
         if(isPlayerMoving)
             playerMovement();
