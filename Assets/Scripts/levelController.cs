@@ -22,7 +22,7 @@ public class levelController : MonoBehaviour
     public canvasList canvasList;
     public GameObject enemies;
 
-    private Queue<GameObject> enemyQueue;
+    private Queue<GameObject> enemyQueue = new Queue<GameObject>();
     private int bullet;
     private GameObject closestEnemy;
 

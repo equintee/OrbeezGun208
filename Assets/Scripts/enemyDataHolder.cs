@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,15 +20,16 @@ public class enemyDataHolder : MonoBehaviour
         //TODO: start running animation for enemy
         //animator.SetTrigger("Run")
     }
-
     private void Update()
     {
-        if (isDead)
-            moveSpeed -= decrementSpeed * Time.deltaTime;
-        if (moveSpeed <= 0)
-            this.enabled = false;
-        
-        moveEnemy();
+         if (isDead)
+             moveSpeed -= decrementSpeed * Time.deltaTime;
+         if (moveSpeed <= 0)
+             this.enabled = false;
+
+         moveEnemy();
+
+
     }
 
     public void animateHit()
@@ -36,6 +38,7 @@ public class enemyDataHolder : MonoBehaviour
         decrementHealth();
         if(health == 1)
         {
+            transform.GetChild(0).transform.DOMoveY(3, 4f);
             //animator.SetTrigger("Stun")
         }
 
