@@ -6,6 +6,8 @@ public class cameraController : MonoBehaviour
 {
     public GameObject target;
     public Vector3 playerOfset;
+
+    private Vector3 velocity = Vector3.zero;
     private void Start()
     {
         transform.position = target.transform.position + playerOfset;
@@ -13,8 +15,7 @@ public class cameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        Vector3 desiredPosition = target.transform.position + playerOfset;
-        Vector3 smoothendPosition = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10f);
-        transform.position = smoothendPosition;
+
+        transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + playerOfset, ref velocity, 0.125f);
     }
 }
