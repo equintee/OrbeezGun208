@@ -376,8 +376,8 @@ MonoBehaviour:
     verticalSpeed: 10
     horizantalSpeed: 0.1
   canvasList:
-    bulletCounter: {fileID: 0}
-  enemies: {fileID: 0}
+    bulletCounter: {fileID: 917530187}
+  enemies: {fileID: 52991453}
 --- !u!4 &272618804
 Transform:
   m_ObjectHideFlags: 0
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 691566491}
   - component: {fileID: 691566490}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
