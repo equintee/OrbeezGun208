@@ -223,7 +223,6 @@ MonoBehaviour:
     horizantalSpeed: 0.01
   canvasList:
     bulletCounter: {fileID: 917530187}
-  enemies: {fileID: 1777378551}
   platformParameters:
     platformParent: {fileID: 723008888}
     landingPointIndex: 0
