@@ -11,6 +11,15 @@ public struct speedParameters
 }
 
 [System.Serializable]
+public struct platformParameters
+{
+    public GameObject platformParent;
+    public int landingPointIndex;
+    public int endingPointIndex;
+
+}
+
+[System.Serializable]
 public struct canvasList
 {
     public GameObject bulletCounter;
@@ -20,40 +29,82 @@ public class levelController : MonoBehaviour
 
     public speedParameters speedParameters;
     public canvasList canvasList;
-    public GameObject enemies;
+    public platformParameters platformParameters;
 
-    private Queue<GameObject> enemyQueue = new Queue<GameObject>();
-    private int bullet;
-    private GameObject closestEnemy;
+    private int bulletCount;
+    private Queue<GameObject> platformList = new Queue<GameObject>();
+    
+
+    private bool ableToShoot;
+    private bool isMoving = true;
+    private bool isJumping;
+
+
 
     private void Start()
     {
-        foreach (Transform enemy in enemies.transform)
-            enemyQueue.Enqueue(enemy.gameObject);
+
+        foreach (Transform platform in platformParameters.platformParent.transform)
+            platformList.Enqueue(platform.gameObject);
+
     }
     public int getBulletCount()
     {
-        return bullet;
+        return bulletCount;
     }
 
     public void updateBulletCount(int amount)
     {
-        bullet += amount;
+        bulletCount += amount;
         updateBulletCountCanvas();
     }
 
     public void updateBulletCountCanvas()
     {
-        canvasList.bulletCounter.GetComponent<TextMeshProUGUI>().text = bullet.ToString();
+        canvasList.bulletCounter.GetComponent<TextMeshProUGUI>().text = bulletCount.ToString();
     }
 
-    public void updateClosestEnemy()
+
+    public GameObject getNextPlatform()
     {
-        closestEnemy = enemyQueue.Dequeue();
+        return platformList.Dequeue();
     }
 
-    public GameObject getClosestEnemy()
+    public bool getIsMoving()
     {
-        return closestEnemy;
+        return isMoving;
+    }
+
+    public void setIsMoving(bool value)
+    {
+        isMoving = value;
+    }
+
+    public bool getAbleToShoot()
+    {
+        return ableToShoot;
+    }
+
+    public void setAbleToShoot(bool value)
+    {
+        ableToShoot = value;
+    }
+
+    public void setIsJumping(bool value)
+    {
+        isJumping = value;
+    }
+
+    public bool getIsJumping()
+    {
+        return isJumping;
+    }
+
+    public void animateJump()
+    {
+        setAbleToShoot(false);
+        setIsMoving(false);
+        setIsJumping(true);
+
     }
 }

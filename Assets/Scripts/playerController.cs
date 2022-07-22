@@ -1,21 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class playerController : MonoBehaviour
 {
 
     public levelController levelController;
-
-    private bool isPlayerMoving = true;
+    private GameObject currentPlatform;
+    private Transform playerModel;
+    private Vector3 verticalMovementUnitVector;
 
     private GameObject closestEnemy;
+
+    private void Start()
+    {
+        currentPlatform = levelController.getNextPlatform();
+        verticalMovementUnitVectorCalculator();
+
+        playerModel = transform.GetChild(0);
+
+    }
     void Update()
     {
         //TODO: TapToStart
 
-        if(isPlayerMoving)
+        if(levelController.getIsMoving())
             playerMovement();
+
+        if (levelController.getIsJumping())
+            animateJumping();
 
         
     }
@@ -34,13 +48,13 @@ public class playerController : MonoBehaviour
 
             if (touch.phase == TouchPhase.Moved)
             {
-                transform.Translate(touch.deltaPosition.x * levelController.speedParameters.horizantalSpeed, 0, 0);
+                playerModel.localPosition = new Vector3(playerModel.localPosition.x + touch.deltaPosition.x * levelController.speedParameters.horizantalSpeed, 0, 0);
+                
+                if (playerModel.localPosition.x > 2f)
+                    playerModel.localPosition = new Vector3(2f, playerModel.localPosition.y, playerModel.localPosition.z);
 
-                if (transform.position.x > 4.5f)
-                    transform.position = new Vector3(4.5f, transform.position.y, transform.position.z);
-
-                if (transform.position.x < -4.5f)
-                    transform.position = new Vector3(-4.5f, transform.position.y, transform.position.z);
+                if (playerModel.localPosition.x < -2f)
+                    playerModel.localPosition = new Vector3(-2f, playerModel.localPosition.y, playerModel.localPosition.z);
             }
             else if(touch.phase == TouchPhase.Canceled)
             {
@@ -52,21 +66,52 @@ public class playerController : MonoBehaviour
             }
 
         }
+        transform.Translate(levelController.speedParameters.verticalSpeed * Time.deltaTime * verticalMovementUnitVector, Space.World);
 
-        transform.Translate(0, 0, levelController.speedParameters.verticalSpeed * Time.deltaTime);
+    }
+
+    private void verticalMovementUnitVectorCalculator()
+    {
+        landingPoint = currentPlatform.transform.GetChild(levelController.platformParameters.landingPointIndex).position;
+        endOfPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.endingPointIndex).position;
+
+        landingPoint.y += 0.5f;
+        endOfPlatform.y += 0.5f;
+
+        verticalMovementUnitVector = Vector3.Normalize(endOfPlatform - landingPoint);
     }
 
     private void shoot()
     {
-
-        if (levelController.getBulletCount() == 0)
+        if (levelController.getBulletCount() == 0 || !levelController.getAbleToShoot())
             return;
-        enemyDataHolder enemyController = levelController.getClosestEnemy().GetComponent<enemyDataHolder>();
-        enemyController.animateHit();
-        levelController.updateBulletCount(-1);
+        var ray = Camera.main.ScreenPointToRay(touch.position);
+        RaycastHit hitinfo;
+        if (Physics.Raycast(ray, out hitinfo))
+        {
+            Debug.Log(hitinfo.collider.gameObject.transform.name);
+        }
 
-        if (enemyController.getHealth() == 0)
-            levelController.updateClosestEnemy();
-        
+
+        /*
+        enemyController.animateHit();
+        levelController.updateBulletCount(-1);*/
+
+
     }
+
+    private Vector3 landingPoint;
+    private Vector3 endOfPlatform;
+    private void animateJumping ()
+    {
+        levelController.setIsJumping(false);
+        currentPlatform = levelController.getNextPlatform();
+        verticalMovementUnitVectorCalculator();
+
+        transform.DOJump(landingPoint, 3, 1, 1f);
+        transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 1f).OnComplete(() => levelController.setIsMoving(true));
+
+    }
+
+
 }
