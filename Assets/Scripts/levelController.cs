@@ -16,6 +16,7 @@ public struct platformParameters
     public GameObject platformParent;
     public int landingPointIndex;
     public int endingPointIndex;
+    public int shootPointIndex;
 
 }
 
