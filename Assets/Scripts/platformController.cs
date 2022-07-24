@@ -10,6 +10,6 @@ public class platformController : MonoBehaviour
 
     public void setAbleToShoot(bool value)
     {
-        levelController.setAbleToShoot(value);
+        levelController.setIsShooting(value);
     }
 }

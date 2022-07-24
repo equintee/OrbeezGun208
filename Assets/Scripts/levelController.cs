@@ -16,8 +16,6 @@ public struct platformParameters
     public GameObject platformParent;
     public int landingPointIndex;
     public int endingPointIndex;
-    public int shootPointIndex;
-
 }
 
 [System.Serializable]
@@ -36,7 +34,7 @@ public class levelController : MonoBehaviour
     private Queue<GameObject> platformList = new Queue<GameObject>();
     
 
-    private bool ableToShoot;
+    private bool isShooting;
     private bool isMoving = true;
     private bool isJumping;
 
@@ -81,14 +79,14 @@ public class levelController : MonoBehaviour
         isMoving = value;
     }
 
-    public bool getAbleToShoot()
+    public bool getIsShooting()
     {
-        return ableToShoot;
+        return isShooting;
     }
 
-    public void setAbleToShoot(bool value)
+    public void setIsShooting(bool value)
     {
-        ableToShoot = value;
+        isShooting = value;
     }
 
     public void setIsJumping(bool value)
@@ -103,9 +101,16 @@ public class levelController : MonoBehaviour
 
     public void animateJump()
     {
-        setAbleToShoot(false);
+        setIsShooting(false);
         setIsMoving(false);
         setIsJumping(true);
 
+    }
+
+    public void animateShooting()
+    {
+        setIsShooting(true);
+        setIsMoving(false);
+        setIsJumping(false);
     }
 }

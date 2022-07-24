@@ -6,11 +6,11 @@ public class platformTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        transform.parent.GetComponent<levelController>().setAbleToShoot(true);
+        transform.parent.GetComponent<levelController>().setIsShooting(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        transform.parent.GetComponent<levelController>().setAbleToShoot(false);
+        transform.parent.GetComponent<levelController>().setIsShooting(false);
     }
 }

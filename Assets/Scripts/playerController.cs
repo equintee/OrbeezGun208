@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour
     private GameObject currentPlatform;
     private Transform playerModel;
     private Vector3 verticalMovementUnitVector;
-
+    public GameObject bullet;
     private GameObject closestEnemy;
 
     private void Start()
@@ -31,6 +31,8 @@ public class playerController : MonoBehaviour
         if (levelController.getIsJumping())
             animateJumping();
 
+        if (levelController.getIsShooting())
+            shoot();
         
     }
 
@@ -42,10 +44,7 @@ public class playerController : MonoBehaviour
 
         if (Input.touchCount > 0)
         {
-            deltaTime += Time.deltaTime;
-
             Touch touch = Input.GetTouch(0);
-
             if (touch.phase == TouchPhase.Moved)
             {
                 playerModel.localPosition = new Vector3(playerModel.localPosition.x + touch.deltaPosition.x * levelController.speedParameters.horizantalSpeed, 0, 0);
@@ -56,18 +55,39 @@ public class playerController : MonoBehaviour
                 if (playerModel.localPosition.x < -2f)
                     playerModel.localPosition = new Vector3(-2f, playerModel.localPosition.y, playerModel.localPosition.z);
             }
-            else if(touch.phase == TouchPhase.Canceled)
-            {
-                if (deltaTime < 0.1f)
-                {
-                    deltaTime = 0f;
-                    shoot();
-                }
-            }
-
         }
         transform.Translate(levelController.speedParameters.verticalSpeed * Time.deltaTime * verticalMovementUnitVector, Space.World);
 
+    }
+
+    private void shoot()
+    {
+        if(Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                var ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hitinfo;
+                if (Physics.Raycast(ray, out hitinfo))
+                {
+                    Transform gunTranform = transform.GetChild(0);
+                    GameObject bulletShoot = Instantiate(bullet, gunTranform.position + new Vector3(0, 0, 0.45f), Quaternion.identity, gunTranform);
+                
+                    levelController.updateBulletCount(-1);
+
+                    GameObject enemy = hitinfo.collider.gameObject;
+
+                    bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
+                }
+            }
+        }
+    }
+
+    private void completeShooting(GameObject bulletShoot, GameObject enemy)
+    {
+        bulletShoot.SetActive(false);
+        enemy.GetComponent<enemyDataHolder>().animateHit(bulletShoot);
     }
 
     private void verticalMovementUnitVectorCalculator()
@@ -81,7 +101,7 @@ public class playerController : MonoBehaviour
         verticalMovementUnitVector = Vector3.Normalize(endOfPlatform - landingPoint);
     }
 
-    private void shoot()
+    /*private void shoot()
     {
         if (levelController.getBulletCount() == 0 || !levelController.getAbleToShoot())
             return;
@@ -95,10 +115,10 @@ public class playerController : MonoBehaviour
 
         /*
         enemyController.animateHit();
-        levelController.updateBulletCount(-1);*/
+        levelController.updateBulletCount(-1);
 
 
-    }
+    }*/
 
     private Vector3 landingPoint;
     private Vector3 endOfPlatform;
