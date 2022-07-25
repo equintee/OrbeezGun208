@@ -8,14 +8,17 @@ public class playerController : MonoBehaviour
 
     public levelController levelController;
     private GameObject currentPlatform;
+    private Transform enemyListOfCurrentPlatform;
     private Transform playerModel;
     private Vector3 verticalMovementUnitVector;
     public GameObject bullet;
     private GameObject closestEnemy;
 
+
     private void Start()
     {
         currentPlatform = levelController.getNextPlatform();
+        enemyListOfCurrentPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.enemyParentIndex);
         verticalMovementUnitVectorCalculator();
 
         playerModel = transform.GetChild(0);
@@ -23,7 +26,6 @@ public class playerController : MonoBehaviour
     }
     void Update()
     {
-        //TODO: TapToStart
 
         if(levelController.getIsMoving())
             playerMovement();
@@ -38,7 +40,6 @@ public class playerController : MonoBehaviour
 
 
     private Touch touch;
-    private float deltaTime = 0f;
     private void playerMovement()
     {
 
@@ -62,9 +63,12 @@ public class playerController : MonoBehaviour
 
     private void shoot()
     {
+        foreach (Transform enemy in enemyListOfCurrentPlatform)
+            enemy.GetComponent<enemyDataHolder>().enabled = true;
         if(Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
+            
             if (touch.phase == TouchPhase.Began)
             {
                 var ray = Camera.main.ScreenPointToRay(touch.position);
@@ -82,6 +86,10 @@ public class playerController : MonoBehaviour
                 }
             }
         }
+
+        if (enemyListOfCurrentPlatform.childCount == 0)
+            levelController.animateMoving();
+            
     }
 
     private void completeShooting(GameObject bulletShoot, GameObject enemy)
@@ -126,10 +134,11 @@ public class playerController : MonoBehaviour
     {
         levelController.setIsJumping(false);
         currentPlatform = levelController.getNextPlatform();
+        enemyListOfCurrentPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.enemyParentIndex);
         verticalMovementUnitVectorCalculator();
-
-        transform.DOJump(landingPoint, 3, 1, 1f);
-        transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 1f).OnComplete(() => levelController.setIsMoving(true));
+        transform.GetChild(0).GetComponent<Animator>().SetTrigger("playerJump");
+        transform.DOJump(landingPoint, 3, 1, 0.5f * 2f).SetEase(Ease.Linear);
+        transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 0.5f * 2f).SetEase(Ease.Linear).OnComplete(() => levelController.animateMoving());
 
     }
 

@@ -5,10 +5,16 @@ using UnityEngine;
 public class cameraController : MonoBehaviour
 {
     public GameObject target;
-    public float playerOfset;
+    public Vector3 shootingPlayerOfset;
+    public Vector3 shootingRotation;
 
+    private Vector3 movingPosition;
     private Vector3 velocity = Vector3.zero;
 
+    private void Start()
+    {
+        movingPosition = transform.position;
+    }
 
     void LateUpdate()
     {

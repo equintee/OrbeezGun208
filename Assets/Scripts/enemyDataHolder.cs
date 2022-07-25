@@ -23,11 +23,12 @@ public class enemyDataHolder : MonoBehaviour
     }
     private void Update()
     {
-         /*if (isDead)
-             moveSpeed -= decrementSpeed * Time.deltaTime;
-         if (moveSpeed <= 0)
-             this.enabled = false;*/
-
+        /*if (isDead)
+            moveSpeed -= decrementSpeed * Time.deltaTime;
+        if (moveSpeed <= 0)
+            this.enabled = false;*/
+        if (isDead)
+            return;
          moveEnemy();
 
 
@@ -72,20 +73,22 @@ public class enemyDataHolder : MonoBehaviour
         if(transform.localPosition.x >= 0)
         {
             transform.parent = prison.transform;
-            prison.transform.DORotate(new Vector3(720, 0, 0), 6f, RotateMode.FastBeyond360);
-            await prison.transform.DOLocalMoveX(4.5f, 3f).SetSpeedBased().AsyncWaitForCompletion();
-            prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetSpeedBased();
-            await prison.transform.DOLocalMoveX(7.5f, 3f).SetSpeedBased().AsyncWaitForCompletion();
+            prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            await prison.transform.DOLocalMoveX(4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetSpeedBased().SetEase(Ease.Linear);
+            await prison.transform.DOLocalMoveX(7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
         else
         {
             transform.parent = prison.transform;
-            await prison.transform.DOLocalMoveX(-4.5f, 3f).SetSpeedBased().AsyncWaitForCompletion();
-            prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetSpeedBased();
-            await prison.transform.DOLocalMoveX(-7.5f, 3f).SetSpeedBased().AsyncWaitForCompletion();
+            prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            await prison.transform.DOLocalMoveX(-4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetEase(Ease.Linear).SetSpeedBased();
+            await prison.transform.DOLocalMoveX(-7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
 
-        Destroy(gameObject);
+        DOTween.Kill(prison.transform);
+        Destroy(prison);
     }
 
     private void moveEnemy()
