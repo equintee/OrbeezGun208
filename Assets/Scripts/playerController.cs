@@ -14,6 +14,8 @@ public class playerController : MonoBehaviour
     public GameObject bullet;
     private GameObject closestEnemy;
 
+    private cameraController cameraController;
+
 
     private void Start()
     {
@@ -22,6 +24,8 @@ public class playerController : MonoBehaviour
         verticalMovementUnitVectorCalculator();
 
         playerModel = transform.GetChild(0);
+
+        cameraController = Camera.main.GetComponent<cameraController>();
 
     }
     void Update()
@@ -63,6 +67,7 @@ public class playerController : MonoBehaviour
 
     private void shoot()
     {
+        
         foreach (Transform enemy in enemyListOfCurrentPlatform)
             enemy.GetComponent<enemyDataHolder>().enabled = true;
         if(Input.touchCount > 0)

@@ -43,11 +43,14 @@ public class levelController : MonoBehaviour
 
     private int UIState = 0;
     private bool tapToStart = true;
+    private cameraController cameraController;
 
     private void Start()
     {
         foreach (Transform platform in platformParameters.platformParent.transform)
             platformList.Enqueue(platform.gameObject);
+
+        cameraController = Camera.main.GetComponent<cameraController>();
     }
 
     private void Update()
@@ -132,6 +135,7 @@ public class levelController : MonoBehaviour
 
     public void animateShooting()
     {
+        cameraController.playerShootingCameraAngle();
         setIsShooting(true);
         setIsMoving(false);
         setIsJumping(false);
@@ -139,6 +143,7 @@ public class levelController : MonoBehaviour
 
     public void animateMoving()
     {
+        cameraController.playerRunningCameraAngle();
         setIsMoving(true);
         setIsShooting(false);
         setIsJumping(false);
