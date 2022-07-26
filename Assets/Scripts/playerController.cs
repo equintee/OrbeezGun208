@@ -84,16 +84,24 @@ public class playerController : MonoBehaviour
                 RaycastHit hitinfo;
                 if (Physics.Raycast(ray, out hitinfo))
                 {
-                    GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
-
-                    levelController.updateBulletCount(-1);
-                    GameObject enemy = hitinfo.collider.gameObject;
-
-                    bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
-
-                    if (enemyListOfCurrentPlatform.childCount == 0)
+                    if (hitinfo.collider.CompareTag("Enemy"))
                     {
-                        levelController.animateMoving();
+                        GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
+
+                        levelController.updateBulletCount(-1);
+                        GameObject enemy = hitinfo.collider.gameObject;
+
+                        bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
+
+                        if (enemyListOfCurrentPlatform.childCount == 0)
+                        {
+                            levelController.animateMoving();
+                        }
+                    }
+
+                    if (hitinfo.collider.CompareTag("Wall"))
+                    {
+                        hitinfo.collider.GetComponent<wallController>().destroyWall();
                     }
                 }
             }
