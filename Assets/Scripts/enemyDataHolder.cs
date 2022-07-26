@@ -62,13 +62,14 @@ public class enemyDataHolder : MonoBehaviour
     private async void growPrison(GameObject prison)
     {
         prison.SetActive(true);
+        DOTween.To(animationSpeed => GetComponent<Animator>().speed = animationSpeed, 1, 0, 0.3f);
         await prison.transform.DOScale(new Vector3(3, 3, 3), 0.3f).AsyncWaitForCompletion();
-        
+        prison.transform.localEulerAngles = new Vector3(0, 0, 0);
 
         if(transform.localPosition.x >= 0)
         {
             transform.parent = prison.transform;
-            prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
             await prison.transform.DOLocalMoveX(4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
             prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetSpeedBased().SetEase(Ease.Linear);
             await prison.transform.DOLocalMoveX(7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
@@ -76,7 +77,7 @@ public class enemyDataHolder : MonoBehaviour
         else
         {
             transform.parent = prison.transform;
-            prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
             await prison.transform.DOLocalMoveX(-4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
             prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetEase(Ease.Linear).SetSpeedBased();
             await prison.transform.DOLocalMoveX(-7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();

@@ -172,4 +172,10 @@ public class levelController : MonoBehaviour
 
     }
 
+    public void animateEnding()
+    {
+        setIsJumping(false);
+        setIsMoving(false);
+        setIsShooting(false);
+    }
 }

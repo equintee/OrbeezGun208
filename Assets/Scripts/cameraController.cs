@@ -33,8 +33,8 @@ public class cameraController : MonoBehaviour
     public void playerShootingCameraAngle()
     {
         DOTween.Kill(transform);
-        transform.DOLocalMove(shootingPlayerOfset, 1f).SetEase(Ease.InQuad);
-        transform.DOLocalRotate(shootingRotation, 1f).SetEase(Ease.InQuad);
+        transform.DOLocalMove(shootingPlayerOfset, 0.3f).SetEase(Ease.InQuad);
+        transform.DOLocalRotate(shootingRotation, 0.3f).SetEase(Ease.InQuad);
     }
     public void playerFire()
     {

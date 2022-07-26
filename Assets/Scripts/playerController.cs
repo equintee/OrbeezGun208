@@ -67,31 +67,40 @@ public class playerController : MonoBehaviour
 
     }
 
-    private void shoot()
+    private bool isWallDestroyed = false;
+    private int wallHp = 2;
+    private async void shoot()
     {
-        
+
         foreach (Transform enemy in enemyListOfCurrentPlatform)
+        {
             enemy.GetComponent<enemyDataHolder>().enabled = true;
+            enemy.GetComponent<Animator>().SetTrigger("enemyRun");
+        }
         if(Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
             
             if (touch.phase == TouchPhase.Began)
             {
-                animator.SetTrigger("playerShoot");
-                cameraController.playerFire();
                 var ray = Camera.main.ScreenPointToRay(touch.position);
                 RaycastHit hitinfo;
                 if (Physics.Raycast(ray, out hitinfo))
                 {
                     if (hitinfo.collider.CompareTag("Enemy"))
                     {
+                        GameObject enemy = hitinfo.collider.gameObject;
+                        if (enemy.GetComponent<enemyDataHolder>().getHealth() == 0)
+                            return;
+                        animator.SetTrigger("playerShoot");
+                        cameraController.playerFire();
+
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
 
                         levelController.updateBulletCount(-1);
-                        GameObject enemy = hitinfo.collider.gameObject;
+                        
 
-                        bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
+                        bulletShoot.transform.DOMove(hitinfo.point, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
 
                         if (enemyListOfCurrentPlatform.childCount == 0)
                         {
@@ -101,7 +110,33 @@ public class playerController : MonoBehaviour
 
                     if (hitinfo.collider.CompareTag("Wall"))
                     {
-                        hitinfo.collider.GetComponent<wallController>().destroyWall();
+                        animator.SetTrigger("playerShoot");
+                        cameraController.playerFire();
+
+                        if (isWallDestroyed)
+                            return;
+                        wallHp--;
+                        isWallDestroyed = wallHp == 0 ? true : false;
+
+                        GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
+                        levelController.updateBulletCount(-1);
+                        await bulletShoot.transform.DOMove(hitinfo.point, 0.5f).AsyncWaitForCompletion();
+                        Destroy(bulletShoot);
+
+                        if (wallHp == 0) { 
+                            foreach (Transform boxTransform in hitinfo.collider.transform)
+                            {
+                                GameObject box = boxTransform.gameObject;
+                                box.AddComponent<BoxCollider>();
+                                Rigidbody rb = box.AddComponent<Rigidbody>();
+                                rb.AddExplosionForce(1000, currentPlatform.transform.position, 5);
+
+                            }
+                            Destroy(hitinfo.collider.gameObject, 2f);
+                            levelController.animateMoving();
+                        }
+
+                        
                     }
                 }
             }
@@ -141,6 +176,11 @@ public class playerController : MonoBehaviour
         verticalMovementUnitVectorCalculator();
         transform.DOJump(landingPoint, 3, 1, 0.5f * 2f).SetEase(Ease.Linear);
         transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 0.5f * 2f).SetEase(Ease.Linear).OnComplete(() => levelController.animateMoving());
+
+    }
+
+    private void animateEnding()
+    {
 
     }
 
