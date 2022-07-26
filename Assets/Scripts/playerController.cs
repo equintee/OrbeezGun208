@@ -15,7 +15,7 @@ public class playerController : MonoBehaviour
     private GameObject closestEnemy;
 
     private cameraController cameraController;
-
+    private Animator animator;
 
     private void Start()
     {
@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour
         playerModel = transform.GetChild(0);
 
         cameraController = Camera.main.GetComponent<cameraController>();
+        animator = transform.GetComponent<Animator>();
 
     }
     void Update()

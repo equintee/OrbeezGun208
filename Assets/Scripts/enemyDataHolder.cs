@@ -13,26 +13,19 @@ public class enemyDataHolder : MonoBehaviour
     private bool isDead = false;
     private bool headShot;
 
+    private Transform playerModel;
     private void Start()
     {
         moveSpeed = transform.parent.GetComponent<enemyController>().getMoveSpeed();
         decrementSpeed = transform.parent.GetComponent<enemyController>().getDecrementSpeed();
 
+        playerModel = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
+
+        moveEnemy();
         //TODO: start running animation for enemy
         //animator.SetTrigger("Run")
     }
-    private void Update()
-    {
-        /*if (isDead)
-            moveSpeed -= decrementSpeed * Time.deltaTime;
-        if (moveSpeed <= 0)
-            this.enabled = false;*/
-        if (isDead)
-            return;
-         moveEnemy();
-
-
-    }
+    
 
     public void animateHit(GameObject prison)
     {
@@ -58,6 +51,7 @@ public class enemyDataHolder : MonoBehaviour
 
             prison = Instantiate(prison, prisonLocation, Quaternion.identity, transform.parent.parent);
             prison.transform.localScale = Vector3.zero;
+            DOTween.Kill(transform);
 
             growPrison(prison);
 
@@ -93,7 +87,7 @@ public class enemyDataHolder : MonoBehaviour
 
     private void moveEnemy()
     {
-        transform.Translate(new Vector3(0, 0, moveSpeed * Time.deltaTime));
+        transform.DOMove(playerModel.position, 3f).SetSpeedBased();
     }
 
     public void decrementHealth()
@@ -109,5 +103,5 @@ public class enemyDataHolder : MonoBehaviour
         return health;
     }
 
-   
+    
 }

@@ -9,6 +9,7 @@ public class cameraController : MonoBehaviour
     public Vector3 shootingPlayerOfset;
     public Vector3 shootingRotation;
 
+    
     private Vector3 movingPosition; //= new Vector3(0.2f, 4.0f, -3.0f);
     private Vector3 movingRotation; //= new Vector3(25.0f, 0.0f, 0.0f);
     private Vector3 velocity = Vector3.zero;
@@ -20,7 +21,7 @@ public class cameraController : MonoBehaviour
 
 
     }
-
+    
 
     public void playerRunningCameraAngle()
     {
@@ -35,6 +36,11 @@ public class cameraController : MonoBehaviour
         transform.DOLocalMove(shootingPlayerOfset, 1f).SetEase(Ease.InQuad);
         transform.DOLocalRotate(shootingRotation, 1f).SetEase(Ease.InQuad);
     }
-
+    public async void playerFire()
+    {
+        DOTween.Kill(transform);
+        await transform.DOMove(shootingPlayerOfset - new Vector3(0, 0, 1), 0.3f).SetEase(Ease.InOutQuint).AsyncWaitForCompletion();
+        playerShootingCameraAngle();
+    }
 
 }
