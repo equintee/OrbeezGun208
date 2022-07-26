@@ -44,6 +44,7 @@ public class levelController : MonoBehaviour
     private int UIState = 0;
     private bool tapToStart = true;
     private cameraController cameraController;
+    private Animator animator;
 
     private void Start()
     {
@@ -51,6 +52,7 @@ public class levelController : MonoBehaviour
             platformList.Enqueue(platform.gameObject);
 
         cameraController = Camera.main.GetComponent<cameraController>();
+        animator = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Update()
@@ -127,6 +129,7 @@ public class levelController : MonoBehaviour
 
     public void animateJump()
     {
+        animator.SetTrigger("playerJump");
         setIsShooting(false);
         setIsMoving(false);
         setIsJumping(true);
@@ -136,6 +139,7 @@ public class levelController : MonoBehaviour
     public void animateShooting()
     {
         cameraController.playerShootingCameraAngle();
+        animator.SetTrigger("playerShootIdle");
         setIsShooting(true);
         setIsMoving(false);
         setIsJumping(false);
@@ -144,6 +148,7 @@ public class levelController : MonoBehaviour
     public void animateMoving()
     {
         cameraController.playerRunningCameraAngle();
+        animator.SetTrigger("playerRun");
         setIsMoving(true);
         setIsShooting(false);
         setIsJumping(false);
@@ -158,5 +163,13 @@ public class levelController : MonoBehaviour
         setIsJumping(false);
     }
 
+    public void animateRefill()
+    {
+        animator.SetTrigger("playerRefill");
+        setIsJumping(false);
+        setIsMoving(false);
+        setIsShooting(false);
+
+    }
 
 }

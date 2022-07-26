@@ -36,11 +36,11 @@ public class cameraController : MonoBehaviour
         transform.DOLocalMove(shootingPlayerOfset, 1f).SetEase(Ease.InQuad);
         transform.DOLocalRotate(shootingRotation, 1f).SetEase(Ease.InQuad);
     }
-    public async void playerFire()
+    public void playerFire()
     {
         DOTween.Kill(transform);
-        await transform.DOMove(shootingPlayerOfset - new Vector3(0, 0, 1), 0.3f).SetEase(Ease.InOutQuint).AsyncWaitForCompletion();
-        playerShootingCameraAngle();
+        transform.DOLocalMove(shootingPlayerOfset - new Vector3(0, 0, 0.1f), 0.1f).SetEase(Ease.InOutQuint).OnComplete(() => transform.DOLocalMove(shootingPlayerOfset + new Vector3(0, 0, 0.1f), 0.1f).SetEase(Ease.Linear));
+        
     }
 
 }

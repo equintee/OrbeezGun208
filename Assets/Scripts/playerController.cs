@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour
         playerModel = transform.GetChild(0);
 
         cameraController = Camera.main.GetComponent<cameraController>();
-        animator = transform.GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
 
     }
     void Update()
@@ -77,15 +77,16 @@ public class playerController : MonoBehaviour
             
             if (touch.phase == TouchPhase.Began)
             {
+                animator.SetTrigger("playerShoot");
+                cameraController.playerFire();
                 var ray = Camera.main.ScreenPointToRay(touch.position);
                 RaycastHit hitinfo;
                 if (Physics.Raycast(ray, out hitinfo))
                 {
                     Transform gunTranform = transform.GetChild(0);
                     GameObject bulletShoot = Instantiate(bullet, gunTranform.position + new Vector3(0, 0, 0.45f), Quaternion.identity, gunTranform);
-                
-                    levelController.updateBulletCount(-1);
 
+                    levelController.updateBulletCount(-1);
                     GameObject enemy = hitinfo.collider.gameObject;
 
                     bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
@@ -94,13 +95,17 @@ public class playerController : MonoBehaviour
         }
 
         if (enemyListOfCurrentPlatform.childCount == 0)
+        {
             levelController.animateMoving();
+        }
+            
             
     }
 
     private void completeShooting(GameObject bulletShoot, GameObject enemy)
     {
-        bulletShoot.SetActive(false);
+        DOTween.Kill(bulletShoot.transform);
+        Destroy(bulletShoot);
         enemy.GetComponent<enemyDataHolder>().animateHit(bulletShoot);
     }
 
@@ -115,24 +120,6 @@ public class playerController : MonoBehaviour
         verticalMovementUnitVector = Vector3.Normalize(endOfPlatform - landingPoint);
     }
 
-    /*private void shoot()
-    {
-        if (levelController.getBulletCount() == 0 || !levelController.getAbleToShoot())
-            return;
-        var ray = Camera.main.ScreenPointToRay(touch.position);
-        RaycastHit hitinfo;
-        if (Physics.Raycast(ray, out hitinfo))
-        {
-            Debug.Log(hitinfo.collider.gameObject.transform.name);
-        }
-
-
-        /*
-        enemyController.animateHit();
-        levelController.updateBulletCount(-1);
-
-
-    }*/
 
     private Vector3 landingPoint;
     private Vector3 endOfPlatform;
@@ -142,7 +129,6 @@ public class playerController : MonoBehaviour
         currentPlatform = levelController.getNextPlatform();
         enemyListOfCurrentPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.enemyParentIndex);
         verticalMovementUnitVectorCalculator();
-        transform.GetChild(0).GetComponent<Animator>().SetTrigger("playerJump");
         transform.DOJump(landingPoint, 3, 1, 0.5f * 2f).SetEase(Ease.Linear);
         transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 0.5f * 2f).SetEase(Ease.Linear).OnComplete(() => levelController.animateMoving());
 
