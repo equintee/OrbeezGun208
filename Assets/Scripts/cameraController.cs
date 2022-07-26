@@ -38,9 +38,11 @@ public class cameraController : MonoBehaviour
     }
     public void playerFire()
     {
+        Vector3 temp = Vector3.Normalize(new Vector3(0, Mathf.Cos(shootingRotation.x), Mathf.Sin(shootingRotation.x))) * 0.1f;
+        //sin y cos z
         DOTween.Kill(transform);
-        transform.DOLocalMove(shootingPlayerOfset - new Vector3(0, 0, 0.1f), 0.1f).SetEase(Ease.InOutQuint).OnComplete(() => transform.DOLocalMove(shootingPlayerOfset + new Vector3(0, 0, 0.1f), 0.1f).SetEase(Ease.Linear));
-        
+        transform.DOLocalMove(shootingPlayerOfset - temp, 0.1f).SetEase(Ease.Linear).OnComplete(() => transform.DOLocalMove(shootingPlayerOfset, 0.1f).SetEase(Ease.Linear));
+
     }
 
 }

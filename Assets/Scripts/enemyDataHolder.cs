@@ -46,12 +46,13 @@ public class enemyDataHolder : MonoBehaviour
             //start roll and fall
             isDead = true;
             this.enabled = false;
+            DOTween.Kill(transform);
 
             Vector3 prisonLocation = new Vector3(0, 0.4f, 0) + transform.position;
 
             prison = Instantiate(prison, prisonLocation, Quaternion.identity, transform.parent.parent);
             prison.transform.localScale = Vector3.zero;
-            DOTween.Kill(transform);
+            
 
             growPrison(prison);
 
@@ -87,7 +88,7 @@ public class enemyDataHolder : MonoBehaviour
 
     private void moveEnemy()
     {
-        transform.DOMove(playerModel.position, 3f).SetSpeedBased();
+        transform.DOMove(playerModel.position, moveSpeed).SetSpeedBased();
     }
 
     public void decrementHealth()

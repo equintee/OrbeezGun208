@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour
     private Transform playerModel;
     private Vector3 verticalMovementUnitVector;
     public GameObject bullet;
+    public Transform gun;
     private GameObject closestEnemy;
 
     private cameraController cameraController;
@@ -83,21 +84,22 @@ public class playerController : MonoBehaviour
                 RaycastHit hitinfo;
                 if (Physics.Raycast(ray, out hitinfo))
                 {
-                    Transform gunTranform = transform.GetChild(0);
-                    GameObject bulletShoot = Instantiate(bullet, gunTranform.position + new Vector3(0, 0, 0.45f), Quaternion.identity, gunTranform);
+                    GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
 
                     levelController.updateBulletCount(-1);
                     GameObject enemy = hitinfo.collider.gameObject;
 
                     bulletShoot.transform.DOMove(enemy.transform.position, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
+
+                    if (enemyListOfCurrentPlatform.childCount == 0)
+                    {
+                        levelController.animateMoving();
+                    }
                 }
             }
         }
 
-        if (enemyListOfCurrentPlatform.childCount == 0)
-        {
-            levelController.animateMoving();
-        }
+        
             
             
     }

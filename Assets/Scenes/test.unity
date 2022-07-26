@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958e1798c557293438b84d819279c221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 0
   decrementSpeed: 0
 --- !u!1 &1712048614
 GameObject:
@@ -2091,6 +2091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelController: {fileID: 272618803}
   bullet: {fileID: 6023465282018845425, guid: 8dcddf3dd69445347b0477a190b7165c, type: 3}
+  gun: {fileID: 6645823804754389533}
 --- !u!4 &2096818697
 Transform:
   m_ObjectHideFlags: 0
@@ -2728,7 +2729,7 @@ GameObject:
   - component: {fileID: 5366159436237047913}
   - component: {fileID: 7202271454595827443}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
