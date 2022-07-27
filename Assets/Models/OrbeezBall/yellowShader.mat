@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: -6465566751694194690, guid: db83e02e5e4b3ec4894bfef89029b66c, type: 3}
+  m_Name: yellowShader
+  m_Shader: {fileID: -6465566751694194690, guid: 0dda7b8bbd61222498b30ca2f580f691, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0

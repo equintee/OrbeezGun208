@@ -17,6 +17,7 @@ public struct platformParameters
     public int landingPointIndex;
     public int endingPointIndex;
     public int enemyParentIndex;
+    public int wallParentIndex;
 }
 
 [System.Serializable]
@@ -97,6 +98,10 @@ public class levelController : MonoBehaviour
         return platformList.Dequeue();
     }
 
+    public bool isLastPlatform()
+    {
+        return platformList.Count == 0;
+    }
     public bool getIsMoving()
     {
         return isMoving;
@@ -174,6 +179,7 @@ public class levelController : MonoBehaviour
 
     public void animateEnding()
     {
+        GameObject.Find("Player").GetComponent<playerController>().animateEnding(); 
         setIsJumping(false);
         setIsMoving(false);
         setIsShooting(false);
