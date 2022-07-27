@@ -135,6 +135,7 @@ public class playerController : MonoBehaviour
                         explosionEffect.GetComponent<ParticleSystem>().Play();
 
                         if (wallHp == 0) {
+                            hitinfo.collider.enabled = false;
                             hitinfo.collider.transform.parent = null;
                             foreach (Transform boxTransform in hitinfo.collider.transform)
                             {
