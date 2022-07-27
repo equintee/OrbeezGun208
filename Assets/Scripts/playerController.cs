@@ -4,7 +4,12 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Threading.Tasks;
+[Serializable]
+public struct gameplayEffects
+{
+    public GameObject baloonEffect;
 
+}
 public class playerController : MonoBehaviour
 {
 
@@ -16,6 +21,9 @@ public class playerController : MonoBehaviour
     private Vector3 verticalMovementUnitVector;
     public GameObject bullet;
     public Transform gun;
+
+    public gameplayEffects gameplayEffects;
+    
 
     public List<Material> bulletMaterials = new List<Material>();
 
@@ -120,9 +128,14 @@ public class playerController : MonoBehaviour
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
                         levelController.updateBulletCount(-1);
                         await bulletShoot.transform.DOMove(hitinfo.point, 0.5f).AsyncWaitForCompletion();
+                        await bulletShoot.transform.DOScale(new Vector3(2, 2, 2), 0.15f).SetEase(Ease.OutSine).AsyncWaitForCompletion();
                         Destroy(bulletShoot);
 
-                        if (wallHp == 0) { 
+                        GameObject explosionEffect = Instantiate(gameplayEffects.baloonEffect, hitinfo.point, Quaternion.identity, currentPlatform.transform);
+                        explosionEffect.GetComponent<ParticleSystem>().Play();
+
+                        if (wallHp == 0) {
+                            hitinfo.collider.transform.parent = null;
                             foreach (Transform boxTransform in hitinfo.collider.transform)
                             {
                                 GameObject box = boxTransform.gameObject;
@@ -185,6 +198,7 @@ public class playerController : MonoBehaviour
     {
 
         GameObject bonusPlatform = levelController.bonusPlatform;
+        bonusPlatform.SetActive(true);
 
         float bonusPlatformMoveOnY = bonusPlatform.transform.lossyScale.y * 7;
         await bonusPlatform.transform.DOLocalMoveY(bonusPlatformMoveOnY, 1).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
@@ -195,7 +209,7 @@ public class playerController : MonoBehaviour
             animator.SetTrigger("bonusShoot");
             bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, 0.3f).SetSpeedBased().OnComplete(() => Destroy(bulletShoot));
             levelController.updateBulletCount(-1);
-            transform.DOMoveY(transform.position.y + 3, 0.5f).SetEase(Ease.OutQuint);
+            transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y, 0.5f).SetEase(Ease.OutQuint);
             await Task.Delay(TimeSpan.FromSeconds(0.5f));
         }
 
