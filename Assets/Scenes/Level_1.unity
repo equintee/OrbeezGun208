@@ -414,6 +414,8 @@ MonoBehaviour:
   target: {fileID: 207878781}
   shootingPlayerOfset: {x: 0.3, y: 3.23, z: -2.39}
   shootingRotation: {x: 20, y: 0, z: 0}
+  endingAnimationPlayerOfset: {x: 0, y: 0, z: 0}
+  endingAnimationRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &330876554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,7 +917,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

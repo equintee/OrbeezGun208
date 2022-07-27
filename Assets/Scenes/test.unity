@@ -2013,6 +2013,8 @@ MonoBehaviour:
   target: {fileID: 919132149577305469}
   shootingPlayerOfset: {x: 0.3, y: 3.23, z: -2.39}
   shootingRotation: {x: 20, y: 0, z: 0}
+  endingAnimationPlayerOfset: {x: 0.15, y: 4.7, z: -4.44}
+  endingAnimationRotation: {x: 25, y: 0, z: 0}
 --- !u!1 &2029740019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2243,7 @@ MonoBehaviour:
   gun: {fileID: 1352993178}
   bulletMaterials:
   - {fileID: 2100000, guid: 34895390df4f91b4a9e7c7ab0bc19fa8, type: 2}
+  - {fileID: 2100000, guid: 0e907694cb2d1234cbc4d7dfe5fdd050, type: 2}
 --- !u!4 &2096818697
 Transform:
   m_ObjectHideFlags: 0

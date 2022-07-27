@@ -9,6 +9,8 @@ public class cameraController : MonoBehaviour
     public Vector3 shootingPlayerOfset;
     public Vector3 shootingRotation;
 
+    public Vector3 endingAnimationPlayerOfset;
+    public Vector3 endingAnimationRotation;
     
     private Vector3 movingPosition; //= new Vector3(0.2f, 4.0f, -3.0f);
     private Vector3 movingRotation; //= new Vector3(25.0f, 0.0f, 0.0f);
@@ -43,6 +45,13 @@ public class cameraController : MonoBehaviour
         DOTween.Kill(transform);
         transform.DOLocalMove(shootingPlayerOfset - temp, 0.1f).SetEase(Ease.Linear).OnComplete(() => transform.DOLocalMove(shootingPlayerOfset, 0.1f).SetEase(Ease.Linear));
 
+    }
+
+    public async void endingAnimationCameraAngle()
+    {
+        DOTween.Kill(transform);
+        transform.DOLocalMove(endingAnimationPlayerOfset, 0.5f).SetEase(Ease.OutSine);
+        await transform.DOLocalRotate(endingAnimationRotation, 0.5f).SetEase(Ease.OutSine).AsyncWaitForCompletion();
     }
 
 }

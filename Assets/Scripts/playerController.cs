@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour
     {
         currentPlatform = levelController.getNextPlatform();
         enemyListOfCurrentPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.enemyParentIndex);
+        wallListOfCurrentPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.wallParentIndex);
         verticalMovementUnitVectorCalculator();
 
         playerModel = transform.GetChild(0);
@@ -183,6 +184,7 @@ public class playerController : MonoBehaviour
 
     public async void animateEnding()
     {
+
         while(levelController.getBulletCount() != 0)
         {
             GameObject bulletShoot = Instantiate(bullet, gun.transform.position, Quaternion.identity, gun);

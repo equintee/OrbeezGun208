@@ -179,6 +179,7 @@ public class levelController : MonoBehaviour
 
     public void animateEnding()
     {
+        cameraController.endingAnimationCameraAngle();
         GameObject.Find("Player").GetComponent<playerController>().animateEnding(); 
         setIsJumping(false);
         setIsMoving(false);
