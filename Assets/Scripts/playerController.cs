@@ -131,7 +131,6 @@ public class playerController : MonoBehaviour
 
                             }
                             Destroy(hitinfo.collider.gameObject, 2f);
-                            levelController.animateMoving();
                             wallHp = 2;
                         } 
                     }
@@ -184,6 +183,11 @@ public class playerController : MonoBehaviour
 
     public async void animateEnding()
     {
+
+        GameObject bonusPlatform = levelController.bonusPlatform;
+
+        float bonusPlatformMoveOnY = bonusPlatform.transform.lossyScale.y * 7;
+        await bonusPlatform.transform.DOLocalMoveY(bonusPlatformMoveOnY, 1).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
 
         while(levelController.getBulletCount() != 0)
         {

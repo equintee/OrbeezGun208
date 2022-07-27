@@ -47,11 +47,11 @@ public class cameraController : MonoBehaviour
 
     }
 
-    public async void endingAnimationCameraAngle()
+    public void endingAnimationCameraAngle()
     {
         DOTween.Kill(transform);
         transform.DOLocalMove(endingAnimationPlayerOfset, 0.5f).SetEase(Ease.OutSine);
-        await transform.DOLocalRotate(endingAnimationRotation, 0.5f).SetEase(Ease.OutSine).AsyncWaitForCompletion();
+        transform.DOLocalRotate(endingAnimationRotation, 0.5f).SetEase(Ease.OutSine).AsyncWaitForCompletion();
     }
 
 }

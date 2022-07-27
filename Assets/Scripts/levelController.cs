@@ -32,6 +32,7 @@ public class levelController : MonoBehaviour
 
     public speedParameters speedParameters;
     public canvasList canvasList;
+    public GameObject bonusPlatform;
     public platformParameters platformParameters;
 
     private int bulletCount;
