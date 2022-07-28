@@ -105,8 +105,9 @@ public class playerController : MonoBehaviour
                     if (hitinfo.collider.CompareTag("Enemy"))
                     {
                         GameObject enemy = hitinfo.collider.gameObject;
-                        if (enemy.GetComponent<enemyDataHolder>().getHealth() == 0)
-                            return;
+                        /*if (enemy.GetComponent<enemyDataHolder>().getHealth() == -1)
+                            return;*/
+                        enemy.GetComponent<enemyDataHolder>().decrementHealth();
                         animator.SetTrigger("playerShoot");
                         cameraController.playerFire();
 
@@ -209,9 +210,10 @@ public class playerController : MonoBehaviour
         float animationSpeed = 0.4f / bonusShootingInterval;
 
         animator.speed = animationSpeed;
-
-        while(levelController.getBulletCount() != 0)
+        int counter = 0;
+        while(levelController.getBulletCount() != 0 && counter < 7)
         {
+            counter++;
             GameObject bulletShoot = Instantiate(bullet, gun.transform.position, Quaternion.identity, gun);
             animator.SetTrigger("bonusShoot");
             bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, bonusShootingInterval).OnComplete(() => Destroy(bulletShoot));
