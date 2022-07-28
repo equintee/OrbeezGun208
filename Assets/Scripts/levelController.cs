@@ -54,7 +54,7 @@ public class levelController : MonoBehaviour
     private Animator animator;
 
 
-    private void Start()
+    private void Awake()
     {
         foreach (Transform platform in platformParameters.platformParent.transform)
             platformList.Enqueue(platform.gameObject);
@@ -199,13 +199,16 @@ public class levelController : MonoBehaviour
 
     }
 
-    public void animateEnding()
+    public async void animateEnding()
     {
-        cameraController.endingAnimationCameraAngle();
-        GameObject.Find("Player").GetComponent<playerController>().animateEnding(); 
         setIsJumping(false);
         setIsMoving(false);
         setIsShooting(false);
+        cameraController.endingAnimationCameraAngle();
+        await GameObject.Find("Player").GetComponent<playerController>().animateEnding();
+
+        canvasList.scoreUI.SetActive(true);
+        
     }
 
 

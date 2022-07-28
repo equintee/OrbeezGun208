@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour
     }
 
     private int wallHp = 2;
+    private bool isWallDestroyed = false;
     private async void shoot()
     {
 
@@ -125,16 +126,15 @@ public class playerController : MonoBehaviour
 
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
                         levelController.updateBulletCount(-1);
+                        
+                        animator.SetTrigger("playerShoot");
+                        cameraController.playerFire();
+
                         await bulletShoot.transform.DOMove(hitinfo.point, 0.5f).AsyncWaitForCompletion();
                         await bulletShoot.transform.DOScale(new Vector3(2, 2, 2), 0.15f).SetEase(Ease.OutSine).AsyncWaitForCompletion();
                         Destroy(bulletShoot);
-
                         GameObject explosionEffect = Instantiate(gameplayEffects.baloonEffect, hitinfo.point, Quaternion.identity, currentPlatform.transform);
                         explosionEffect.GetComponent<ParticleSystem>().Play();
-
-                        if (wallHp <= 0)
-                            return;
-
 
                         animator.SetTrigger("playerShoot");
                         cameraController.playerFire();
@@ -149,11 +149,14 @@ public class playerController : MonoBehaviour
                             {
                                 GameObject box = boxTransform.gameObject;
                                 Rigidbody rb = box.AddComponent<Rigidbody>();
+                                if (rb == null)
+                                    return;
                                 rb.AddExplosionForce(1000, currentPlatform.transform.position, 5);
 
                             }
                             Destroy(hitinfo.collider.gameObject, 2f);
                             wallHp = 2;
+                            isWallDestroyed = false;
                         } 
                     }
                 }
@@ -203,7 +206,7 @@ public class playerController : MonoBehaviour
 
     }
 
-    public async void animateEnding()
+    public async Task animateEnding()
     {
 
         GameObject bonusPlatform = levelController.bonusPlatform;
@@ -226,7 +229,7 @@ public class playerController : MonoBehaviour
             await transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y / 1.5f, bonusShootingInterval).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
         }
 
-       
+        await Task.Delay(TimeSpan.FromSeconds(1f));
     }
 
     private void generateRandomBullet()
