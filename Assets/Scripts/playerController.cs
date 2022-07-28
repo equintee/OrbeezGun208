@@ -122,11 +122,6 @@ public class playerController : MonoBehaviour
 
                     if (hitinfo.collider.CompareTag("Wall"))
                     {
-                        if (wallHp <= 0)
-                            return;
-                        animator.SetTrigger("playerShoot");
-                        cameraController.playerFire();
-                        wallHp--;
 
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
                         levelController.updateBulletCount(-1);
@@ -136,6 +131,16 @@ public class playerController : MonoBehaviour
 
                         GameObject explosionEffect = Instantiate(gameplayEffects.baloonEffect, hitinfo.point, Quaternion.identity, currentPlatform.transform);
                         explosionEffect.GetComponent<ParticleSystem>().Play();
+
+                        if (wallHp <= 0)
+                            return;
+
+
+                        animator.SetTrigger("playerShoot");
+                        cameraController.playerFire();
+                        wallHp--;
+                        
+                        
 
                         if (wallHp == 0) {
                             hitinfo.collider.enabled = false;

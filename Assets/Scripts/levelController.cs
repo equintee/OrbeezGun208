@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 [System.Serializable]
 public struct speedParameters
@@ -204,5 +206,14 @@ public class levelController : MonoBehaviour
         setIsJumping(false);
         setIsMoving(false);
         setIsShooting(false);
+    }
+
+
+    public void changeScene()
+    {
+        int level = SceneManager.GetActiveScene().buildIndex;
+        level++;
+        level %= SceneManager.sceneCount;
+        SceneManager.LoadScene(level);
     }
 }
