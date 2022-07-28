@@ -14,14 +14,9 @@ public class orbeezPoolController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        levelController.animateRefill();
-        Invoke("endRefill", 2f);
+        GetComponent<BoxCollider>().enabled = false;
+        levelController.animateRefill(transform, bulletCount);
     }
 
-    private void endRefill()
-    {
-        levelController.updateBulletCount(bulletCount);
-        levelController.animateMoving();
-    }
 
 }

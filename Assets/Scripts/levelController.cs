@@ -1,5 +1,8 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -47,6 +50,7 @@ public class levelController : MonoBehaviour
     private bool tapToStart = true;
     private cameraController cameraController;
     private Animator animator;
+
 
     private void Start()
     {
@@ -169,12 +173,27 @@ public class levelController : MonoBehaviour
         setIsJumping(false);
     }
 
-    public void animateRefill()
+    public async void animateRefill(Transform pool, int bulletCount)
     {
-        animator.SetTrigger("playerRefill");
+
         setIsJumping(false);
         setIsMoving(false);
         setIsShooting(false);
+
+        Transform playerParent = GameObject.FindGameObjectWithTag("Player").transform;
+        Transform player = playerParent.transform.GetChild(0);
+
+        player.DOMoveX(pool.position.x, 0.5f).SetEase(Ease.Linear);
+        await playerParent.DOMoveZ(pool.position.z, 0.5f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        Debug.Log(pool.localPosition);
+        Debug.Log(playerParent.localPosition);
+        Debug.Log(player.localPosition);
+
+        animator.SetTrigger("playerRefill");
+        await Task.Delay(TimeSpan.FromSeconds(2f));
+        updateBulletCount(bulletCount);
+        animateMoving();
+
 
     }
 
