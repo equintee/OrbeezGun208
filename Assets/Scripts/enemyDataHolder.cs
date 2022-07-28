@@ -12,12 +12,14 @@ public class enemyDataHolder : MonoBehaviour
     private float decrementSpeed;
     private bool isDead = false;
     private bool headShot;
+    private Animator animator;
 
     private Transform playerModel;
     private void Start()
     {
         moveSpeed = transform.parent.GetComponent<enemyController>().getMoveSpeed();
         decrementSpeed = transform.parent.GetComponent<enemyController>().getDecrementSpeed();
+        animator = GetComponent<Animator>();
 
         playerModel = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
 
@@ -33,18 +35,19 @@ public class enemyDataHolder : MonoBehaviour
         if (isDead)
             return;
 
-        decrementHealth();
         if(health == 1)
         {
-            
-            //animator.SetTrigger("Stun")
+            DOTween.Kill(transform);
+            animator.SetTrigger("enemyHit");
+            Invoke("moveEnemy", 1.57f);
         }
 
-        if (health == 0)
+        if (health <= 0)
         {
             //mask move up, animator speed down
             //start roll and fall
             isDead = true;
+            transform.GetComponent<BoxCollider>().enabled = false;
             this.enabled = false;
             DOTween.Kill(transform);
 
@@ -57,6 +60,8 @@ public class enemyDataHolder : MonoBehaviour
             growPrison(prison);
 
         }
+
+        Debug.Log(health);
     }
 
     private async void growPrison(GameObject prison)
@@ -70,17 +75,17 @@ public class enemyDataHolder : MonoBehaviour
         {
             transform.parent = prison.transform;
             prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
-            await prison.transform.DOLocalMoveX(4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
-            prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetSpeedBased().SetEase(Ease.Linear);
-            await prison.transform.DOLocalMoveX(7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            await prison.transform.DOLocalMoveX(4.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            prison.transform.DOLocalMoveY(transform.position.y - 4, 5f).SetSpeedBased().SetEase(Ease.Linear);
+            await prison.transform.DOLocalMoveX(7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
         else
         {
             transform.parent = prison.transform;
             prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
-            await prison.transform.DOLocalMoveX(-4.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            await prison.transform.DOLocalMoveX(-4.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
             prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetEase(Ease.Linear).SetSpeedBased();
-            await prison.transform.DOLocalMoveX(-7.5f, 3f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            await prison.transform.DOLocalMoveX(-7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
 
         DOTween.Kill(prison.transform);
@@ -104,6 +109,7 @@ public class enemyDataHolder : MonoBehaviour
     {
         return health;
     }
+
 
     
 }
