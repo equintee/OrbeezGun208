@@ -216,7 +216,7 @@ public class playerController : MonoBehaviour
             animator.SetTrigger("bonusShoot");
             bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, bonusShootingInterval).OnComplete(() => Destroy(bulletShoot));
             levelController.updateBulletCount(-1);
-            await transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y, bonusShootingInterval).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
+            await transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y / 2, bonusShootingInterval).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
         }
 
        
