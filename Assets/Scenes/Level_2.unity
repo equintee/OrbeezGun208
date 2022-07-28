@@ -484,8 +484,9 @@ MonoBehaviour:
   target: {fileID: 207878781}
   shootingPlayerOfset: {x: 0.3, y: 3.23, z: -2.39}
   shootingRotation: {x: 20, y: 0, z: 0}
-  endingAnimationPlayerOfset: {x: 0.15, y: 4.7, z: -4.44}
-  endingAnimationRotation: {x: 25, y: 0, z: 0}
+  bonusAnimationPlayerOfset: {x: 0.15, y: 4.7, z: -4.44}
+  bonusAnimationRotation: {x: 25, y: 0, z: 0}
+  bonusAnimationCameraMovingTime: 0.5
 --- !u!114 &330876554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,6 +1791,7 @@ MonoBehaviour:
   levelController: {fileID: 764001523}
   bullet: {fileID: 6023465282018845425, guid: 8dcddf3dd69445347b0477a190b7165c, type: 3}
   gun: {fileID: 1839146776}
+  bonusShootingInterval: 0
   gameplayEffects:
     baloonEffect: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   bulletMaterials:
