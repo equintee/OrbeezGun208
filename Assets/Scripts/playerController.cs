@@ -22,6 +22,8 @@ public class playerController : MonoBehaviour
     public GameObject bullet;
     public Transform gun;
 
+    public float bonusShootingInterval;
+
     public gameplayEffects gameplayEffects;
     
 
@@ -69,11 +71,11 @@ public class playerController : MonoBehaviour
             {
                 playerModel.localPosition = new Vector3(playerModel.localPosition.x + touch.deltaPosition.x * levelController.speedParameters.horizantalSpeed, 0, 0);
                 
-                if (playerModel.localPosition.x > 2f)
-                    playerModel.localPosition = new Vector3(2f, playerModel.localPosition.y, playerModel.localPosition.z);
+                if (playerModel.localPosition.x > 4f)
+                    playerModel.localPosition = new Vector3(4f, playerModel.localPosition.y, playerModel.localPosition.z);
 
-                if (playerModel.localPosition.x < -2f)
-                    playerModel.localPosition = new Vector3(-2f, playerModel.localPosition.y, playerModel.localPosition.z);
+                if (playerModel.localPosition.x < -4f)
+                    playerModel.localPosition = new Vector3(-4f, playerModel.localPosition.y, playerModel.localPosition.z);
             }
         }
         transform.Translate(levelController.speedParameters.verticalSpeed * Time.deltaTime * verticalMovementUnitVector, Space.World);
@@ -204,14 +206,17 @@ public class playerController : MonoBehaviour
         float bonusPlatformMoveOnY = bonusPlatform.transform.lossyScale.y * 7;
         await bonusPlatform.transform.DOLocalMoveY(bonusPlatformMoveOnY, 1).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
 
+        float animationSpeed = 0.4f / bonusShootingInterval;
+
+        animator.speed = animationSpeed;
+
         while(levelController.getBulletCount() != 0)
         {
             GameObject bulletShoot = Instantiate(bullet, gun.transform.position, Quaternion.identity, gun);
             animator.SetTrigger("bonusShoot");
-            bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, 0.3f).SetSpeedBased().OnComplete(() => Destroy(bulletShoot));
+            bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, bonusShootingInterval).OnComplete(() => Destroy(bulletShoot));
             levelController.updateBulletCount(-1);
-            transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y, 0.5f).SetEase(Ease.OutQuint);
-            await Task.Delay(TimeSpan.FromSeconds(0.5f));
+            await transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y, bonusShootingInterval).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
         }
 
        
