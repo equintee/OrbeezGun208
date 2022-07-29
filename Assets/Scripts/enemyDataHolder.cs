@@ -74,18 +74,20 @@ public class enemyDataHolder : MonoBehaviour
         if(transform.localPosition.x >= 0)
         {
             transform.parent = prison.transform;
-            prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            /*prison.transform.DOLocalRotate(new Vector3(0, 0, -720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
             await prison.transform.DOLocalMoveX(4.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
             prison.transform.DOLocalMoveY(transform.position.y - 4, 5f).SetSpeedBased().SetEase(Ease.Linear);
-            await prison.transform.DOLocalMoveX(7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            await prison.transform.DOLocalMoveX(7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();*/
+            await prison.transform.DOMoveY(prison.transform.position.y + 5, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
         else
         {
             transform.parent = prison.transform;
-            prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            /*prison.transform.DOLocalRotate(new Vector3(0, 0, 720), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
             await prison.transform.DOLocalMoveX(-4.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
             prison.transform.DOLocalMoveY(transform.position.y - 4, 3f).SetEase(Ease.Linear).SetSpeedBased();
-            await prison.transform.DOLocalMoveX(-7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();
+            await prison.transform.DOLocalMoveX(-7.5f, 5f).SetSpeedBased().SetEase(Ease.Linear).AsyncWaitForCompletion();*/
+            await prison.transform.DOMoveY(prison.transform.position.y + 5, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         }
 
         DOTween.Kill(prison.transform);

@@ -229,7 +229,7 @@ public class levelController : MonoBehaviour
     public void showScore()
     {
         int targetScore = UnityEngine.Random.Range(50, 101) * getBulletCount();
-        TextMeshProUGUI scoreTMP = canvasList.scoreUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI scoreTMP = canvasList.scoreUI.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
         int currentScore = 0;
 
         DOTween.To(() => currentScore, x => { currentScore = x; scoreTMP.text = currentScore.ToString(); }, targetScore, 1f).SetEase(Ease.Linear);
