@@ -28,13 +28,15 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3985479219058949457}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 4640881286728844863}
+  - {fileID: 1460806794047115765}
+  m_Father: {fileID: 7553844031810287120}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.9100685, y: 363}
+  m_AnchoredPosition: {x: -4.410079, y: -6.084839}
   m_SizeDelta: {x: 484, y: 169.33333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1797741782698831414
@@ -101,17 +103,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2152959379430153816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
-  m_Father: {fileID: 7553844031810287120}
-  m_RootOrder: 3
+  m_Father: {fileID: 1812475220464014583}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.19274417, y: 0.43417084}
-  m_AnchorMax: {x: 0.67970717, y: 0.5644047}
-  m_AnchoredPosition: {x: 132, y: 2.5}
-  m_SizeDelta: {x: -326, y: -151}
+  m_AnchorMin: {x: 0, y: 0.17983471}
+  m_AnchorMax: {x: 0.570248, y: 0.84181106}
+  m_AnchoredPosition: {x: 107.46078, y: -1.8792105}
+  m_SizeDelta: {x: -156.4873, y: -69.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &507153548636761744
 CanvasRenderer:
@@ -168,8 +170,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -204,7 +206,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 67.71815, w: 0}
+  m_margin: {x: -2.481392, y: 6.2059336, z: 51.58911, w: 6.2059526}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -389,15 +391,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3240117856122725678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7553844031810287120}
-  m_RootOrder: 4
+  m_Father: {fileID: 1812475220464014583}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5812314, y: 0.46317402}
-  m_AnchorMax: {x: 0.6942315, y: 0.54023373}
+  m_AnchorMin: {x: 0.69500005, y: 0.23888981}
+  m_AnchorMax: {x: 0.9338678, y: 0.88900006}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -626,7 +628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7553844031810287120
 RectTransform:
   m_ObjectHideFlags: 0
@@ -641,8 +643,7 @@ RectTransform:
   - {fileID: 7553844030641143727}
   - {fileID: 7553844030698649000}
   - {fileID: 3985479219058949457}
-  - {fileID: 4640881286728844863}
-  - {fileID: 1460806794047115765}
+  - {fileID: 1812475220464014583}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -743,7 +744,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3982761048201815286}
-  - {fileID: 1812475220464014583}
   m_Father: {fileID: 7553844031810287120}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -833,4 +833,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3629648475479238177}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: levelController, Assembly-CSharp
+        m_MethodName: changeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
