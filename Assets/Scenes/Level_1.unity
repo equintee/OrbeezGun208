@@ -1111,6 +1111,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1548389928}
     m_Modifications:
+    - target: {fileID: 7224300216579488172, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224300216579488172, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.52
+      objectReference: {fileID: 0}
     - target: {fileID: 7224300217056830120, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
       propertyPath: m_Name
       value: bonusPlatform
