@@ -208,26 +208,19 @@ public class playerController : MonoBehaviour
 
     public async Task animateEnding()
     {
+        currentPlatform = levelController.getNextPlatform();
+        await transform.DOJump(currentPlatform.transform.GetChild(0).position, 3, 1, 1f).AsyncWaitForCompletion();
+        Transform bonusHelicopter = levelController.bonusHelicopter;
+        Transform helicopterRotor = bonusHelicopter.GetChild(2);
+        Transform endOfPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.endingPointIndex);
+        helicopterRotor.DOLocalRotate(new Vector3(0, 360, 0), 20, RotateMode.FastBeyond360).SetSpeedBased().SetEase(Ease.OutExpo).SetLoops(-1);
+        Camera.main.transform.parent = null;
+        await playerModel.transform.DOMove(bonusHelicopter.GetChild(bonusHelicopter.childCount - 1).transform.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        
+        playerModel.gameObject.SetActive(false);
 
-        GameObject bonusPlatform = levelController.bonusPlatform;
-        bonusPlatform.SetActive(true);
-
-        float bonusPlatformMoveOnY = bonusPlatform.transform.lossyScale.y * 7;
-        await bonusPlatform.transform.DOLocalMoveY(bonusPlatformMoveOnY, 1).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
-
-        float animationSpeed = 0.4f / bonusShootingInterval;
-
-        animator.speed = animationSpeed;
-        int counter = 0;
-        while(levelController.getBulletCount() != 0 && counter < 7)
-        {
-            counter++;
-            GameObject bulletShoot = Instantiate(bullet, gun.transform.position, Quaternion.identity, gun);
-            animator.SetTrigger("bonusShoot");
-            bulletShoot.transform.DOMoveY(bulletShoot.transform.position.y - 3, bonusShootingInterval).OnComplete(() => Destroy(bulletShoot));
-            levelController.updateBulletCount(-1);
-            await transform.DOMoveY(transform.position.y + bonusPlatform.transform.lossyScale.y / 1.5f, bonusShootingInterval).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
-        }
+        bonusHelicopter.DORotate(new Vector3(10, 0, 0), 1).SetEase(Ease.InQuart);
+        bonusHelicopter.DOMoveY(bonusHelicopter.transform.localPosition.y + 5, 2).SetEase(Ease.InQuart);
 
         await Task.Delay(TimeSpan.FromSeconds(1f));
     }

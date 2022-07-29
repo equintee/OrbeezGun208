@@ -37,7 +37,7 @@ public class levelController : MonoBehaviour
 
     public speedParameters speedParameters;
     public canvasList canvasList;
-    public GameObject bonusPlatform;
+    public Transform bonusHelicopter;
     public platformParameters platformParameters;
 
     private int bulletCount;
@@ -107,7 +107,7 @@ public class levelController : MonoBehaviour
 
     public bool isLastPlatform()
     {
-        return platformList.Count == 0;
+        return platformList.Count == 1;
     }
     public bool getIsMoving()
     {
@@ -218,5 +218,10 @@ public class levelController : MonoBehaviour
         level++;
         level %= SceneManager.sceneCount;
         SceneManager.LoadScene(level);
+    }
+
+    public int calculateScore(int count)
+    {
+        return UnityEngine.Random.Range(500, 1001) * count;
     }
 }
