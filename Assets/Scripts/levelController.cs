@@ -95,6 +95,7 @@ public class levelController : MonoBehaviour
     public void updateBulletCount(int amount)
     {
         bulletCount += amount;
+        bulletCount = bulletCount < 0 ? 0 : bulletCount;
         updateBulletCountCanvas();
     }
 
