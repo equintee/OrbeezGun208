@@ -216,7 +216,7 @@ public class levelController : MonoBehaviour
     {
         int level = SceneManager.GetActiveScene().buildIndex;
         level++;
-        level %= SceneManager.sceneCount;
+        level %= SceneManager.sceneCountInBuildSettings;
         SceneManager.LoadScene(level);
     }
 
