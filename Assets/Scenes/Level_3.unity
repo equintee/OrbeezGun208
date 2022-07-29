@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.060686048, g: 0.7097972, b: 0.935348, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.06072698, g: 0.71062046, b: 0.93404204, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7224300217056830121, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7224300217056830121, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 395177573}
   - component: {fileID: 395177572}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -790,11 +790,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395177571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00007247925, y: -20.154202, z: 453}
+  m_LocalPosition: {x: -18.761864, y: -13, z: 471.878}
   m_LocalScale: {x: 578.5414, y: 578.5414, z: 578.5414}
   m_Children: []
-  m_Father: {fileID: 1548389928}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &429138440
 GameObject:
@@ -1018,6 +1018,11 @@ Transform:
   m_Father: {fileID: 1097051126}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &515319789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7553844031810287212, guid: 98258f22118d7c441b7f2fb3062019ce, type: 3}
+  m_PrefabInstance: {fileID: 7553844031157920849}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &540793533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1083,6 +1088,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
+--- !u!1 &547678558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7367214308422484536, guid: b8f8ee314727e074bb3511d5926027ba, type: 3}
+  m_PrefabInstance: {fileID: 7367214306980020538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &559016363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,9 +1419,10 @@ MonoBehaviour:
     verticalSpeed: 10
     horizantalSpeed: 0.01
   canvasList:
-    bulletCounter: {fileID: 0}
-    tapToStart: {fileID: 0}
-    scoreUI: {fileID: 0}
+    bulletCounter: {fileID: 1905587618}
+    tapToStart: {fileID: 1111702150}
+    scoreUI: {fileID: 515319789}
+    gameplayCanvas: {fileID: 547678558}
   bonusHelicopter: {fileID: 81641453}
   platformParameters:
     platformParent: {fileID: 1548389927}
@@ -2177,6 +2188,11 @@ Transform:
   m_Father: {fileID: 1941617505}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1111702150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5836727792240847053, guid: 77eef831ee672bf40b2a6e9e44d87632, type: 3}
+  m_PrefabInstance: {fileID: 5836727791396955930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1119637008
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3488,6 @@ Transform:
   - {fileID: 999830790}
   - {fileID: 1258384130}
   - {fileID: 1199219293}
-  - {fileID: 395177575}
   - {fileID: 81641452}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -3748,6 +3763,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877214024}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1905587618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7367214308532774409, guid: b8f8ee314727e074bb3511d5926027ba, type: 3}
+  m_PrefabInstance: {fileID: 7367214306980020538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1915286673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3539034567767514246, guid: 4b075c8c86f8739479ab824cc95e7a87, type: 3}
@@ -4209,6 +4229,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8c2a89e32e576664b93135bce88ee734, type: 2}
+    - target: {fileID: 3933775858432595834, guid: 4b075c8c86f8739479ab824cc95e7a87, type: 3}
+      propertyPath: bulletCount
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 3933775859056094057, guid: 4b075c8c86f8739479ab824cc95e7a87, type: 3}
       propertyPath: m_LocalPosition.z
       value: -13.97

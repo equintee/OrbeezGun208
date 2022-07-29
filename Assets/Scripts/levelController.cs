@@ -31,6 +31,7 @@ public struct canvasList
     public GameObject bulletCounter;
     public GameObject tapToStart;
     public GameObject scoreUI;
+    public GameObject gameplayCanvas;
 }
 public class levelController : MonoBehaviour
 {
@@ -71,13 +72,16 @@ public class levelController : MonoBehaviour
                 showUI(canvasList.tapToStart);
                 break;
             case 1:
+                canvasList.gameplayCanvas.SetActive(false);
                 showUI(canvasList.scoreUI);
+                showScore();
                 break;
         }
 
         if (tapToStart && Input.touchCount > 0)
         {
             tapToStart = false;
+            canvasList.gameplayCanvas.SetActive(true);
             canvasList.tapToStart.SetActive(false);
             animateMoving();
         }
@@ -207,7 +211,7 @@ public class levelController : MonoBehaviour
         cameraController.endingAnimationCameraAngle();
         await GameObject.Find("Player").GetComponent<playerController>().animateEnding();
 
-        canvasList.scoreUI.SetActive(true);
+        UIState = 1;
         
     }
 
@@ -220,8 +224,17 @@ public class levelController : MonoBehaviour
         SceneManager.LoadScene(level);
     }
 
-    public int calculateScore(int count)
+
+    public void showScore()
     {
-        return UnityEngine.Random.Range(500, 1001) * count;
+        int targetScore = UnityEngine.Random.Range(50, 101) * getBulletCount();
+        TextMeshProUGUI scoreTMP = canvasList.scoreUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        int currentScore = 0;
+
+        DOTween.To(() => currentScore, x => { currentScore = x; scoreTMP.text = currentScore.ToString(); }, targetScore, 1f).SetEase(Ease.Linear);
+            
+
     }
+
+    
 }
