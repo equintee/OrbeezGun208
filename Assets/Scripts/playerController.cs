@@ -215,8 +215,21 @@ public class playerController : MonoBehaviour
         Transform bonusHelicopter = levelController.bonusHelicopter;
         Transform startOfRamp = bonusHelicopter.GetChild(0);
         Transform endOfRamp = bonusHelicopter.GetChild(1);
-        
+        Transform leftFan = bonusHelicopter.GetChild(2);
+        Transform rightFan = bonusHelicopter.GetChild(3);
+
         Camera.main.transform.parent = null;
+
+        //Rotation of fans
+        leftFan.DOLocalRotate(new Vector3(0, 0, 360000), 50f, RotateMode.FastBeyond360).SetEase(Ease.OutCubic);
+
+
+
+        rightFan.DOLocalRotate(new Vector3(0, 0, 360000), 50f, RotateMode.FastBeyond360).SetEase(Ease.OutCubic);
+        
+
+        Debug.Log("asd");
+
         await playerModel.transform.DOMove(startOfRamp.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         playerModel.transform.DOMove(endOfRamp.position, 1f).SetEase(Ease.Linear);
         await Task.Delay(TimeSpan.FromSeconds(0.65f));
