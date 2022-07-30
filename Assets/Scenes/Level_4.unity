@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06293533, g: 0.70816976, b: 0.94645983, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.06072698, g: 0.71062046, b: 0.93404204, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1530,7 +1530,7 @@ MonoBehaviour:
     tapToStart: {fileID: 1261524068}
     scoreUI: {fileID: 2062280028}
     gameplayCanvas: {fileID: 1924069565}
-  bonusHelicopter: {fileID: 1542009103}
+  bonusHelicopter: {fileID: 1517152938}
   platformParameters:
     platformParent: {fileID: 1548389927}
     landingPointIndex: 0
@@ -2343,7 +2343,11 @@ MonoBehaviour:
   gameplayEffects:
     baloonEffect: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   bulletMaterials:
+  - {fileID: 2100000, guid: 0e907694cb2d1234cbc4d7dfe5fdd050, type: 2}
   - {fileID: 2100000, guid: 34895390df4f91b4a9e7c7ab0bc19fa8, type: 2}
+  - {fileID: 2100000, guid: e71dfec3db0d6e94b9a496676a33f333, type: 2}
+  - {fileID: 2100000, guid: 2c9f07caac07e0f4fb1d51598f8c104f, type: 2}
+  - {fileID: 2100000, guid: 852cff705eac02a4896154e81cb0469d, type: 2}
 --- !u!4 &954637740
 Transform:
   m_ObjectHideFlags: 0
@@ -3577,6 +3581,11 @@ Transform:
   m_Father: {fileID: 39680590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1517152938 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+  m_PrefabInstance: {fileID: 7224300217049256874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1517309165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3787,11 +3796,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
---- !u!4 &1542009103 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7224300215459704097, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
-  m_PrefabInstance: {fileID: 7224300217049256874}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1548389927
 GameObject:
   m_ObjectHideFlags: 0

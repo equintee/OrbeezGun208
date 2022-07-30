@@ -111,7 +111,7 @@ public class playerController : MonoBehaviour
                         enemy.GetComponent<enemyDataHolder>().decrementHealth();
                         animator.SetTrigger("playerShoot");
                         cameraController.playerFire();
-
+                        
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
                         bulletShoot.transform.localScale = Vector3.zero;
 

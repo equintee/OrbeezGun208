@@ -1252,6 +1252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4afa8d2e3b16ec4bbd1acc28ad910b6, type: 3}
+--- !u!4 &648221378 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+  m_PrefabInstance: {fileID: 1390396120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &690120746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3933775858286393739, guid: 4b075c8c86f8739479ab824cc95e7a87, type: 3}
@@ -1294,7 +1299,7 @@ MonoBehaviour:
     tapToStart: {fileID: 1779692915}
     scoreUI: {fileID: 1771764826}
     gameplayCanvas: {fileID: 1715912515}
-  bonusHelicopter: {fileID: 0}
+  bonusHelicopter: {fileID: 648221378}
   platformParameters:
     platformParent: {fileID: 1548389927}
     landingPointIndex: 0
@@ -2152,7 +2157,11 @@ MonoBehaviour:
   gameplayEffects:
     baloonEffect: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   bulletMaterials:
+  - {fileID: 2100000, guid: 0e907694cb2d1234cbc4d7dfe5fdd050, type: 2}
   - {fileID: 2100000, guid: 34895390df4f91b4a9e7c7ab0bc19fa8, type: 2}
+  - {fileID: 2100000, guid: e71dfec3db0d6e94b9a496676a33f333, type: 2}
+  - {fileID: 2100000, guid: 2c9f07caac07e0f4fb1d51598f8c104f, type: 2}
+  - {fileID: 2100000, guid: 852cff705eac02a4896154e81cb0469d, type: 2}
 --- !u!4 &954637740
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 928930905496265979}
   - component: {fileID: 949176594606856428}
   - component: {fileID: 6605908036729981614}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: greenBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34895390df4f91b4a9e7c7ab0bc19fa8, type: 2}
+  - {fileID: 2100000, guid: 2c9f07caac07e0f4fb1d51598f8c104f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
