@@ -213,16 +213,17 @@ public class playerController : MonoBehaviour
         currentPlatform = levelController.getNextPlatform();
         await transform.DOJump(currentPlatform.transform.GetChild(0).position, 3, 1, 1f).AsyncWaitForCompletion();
         Transform bonusHelicopter = levelController.bonusHelicopter;
-        Transform helicopterRotor = bonusHelicopter.GetChild(2);
-        Transform endOfPlatform = currentPlatform.transform.GetChild(levelController.platformParameters.endingPointIndex);
-        helicopterRotor.DOLocalRotate(new Vector3(0, 360, 0), 20, RotateMode.FastBeyond360).SetSpeedBased().SetEase(Ease.OutExpo).SetLoops(-1);
-        Camera.main.transform.parent = null;
-        await playerModel.transform.DOMove(bonusHelicopter.GetChild(bonusHelicopter.childCount - 1).transform.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        Transform startOfRamp = bonusHelicopter.GetChild(0);
+        Transform endOfRamp = bonusHelicopter.GetChild(1);
         
+        Camera.main.transform.parent = null;
+        await playerModel.transform.DOMove(startOfRamp.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        playerModel.transform.DOMove(endOfRamp.position, 1f).SetEase(Ease.Linear);
+        await Task.Delay(TimeSpan.FromSeconds(0.65f));
         playerModel.gameObject.SetActive(false);
 
-        bonusHelicopter.DORotate(new Vector3(10, 0, 0), 1).SetEase(Ease.InQuart);
-        bonusHelicopter.DOMoveY(bonusHelicopter.transform.localPosition.y + 5, 2).SetEase(Ease.InQuart);
+        /*bonusHelicopter.DORotate(new Vector3(10, 0, 0), 1).SetEase(Ease.InQuart);
+        bonusHelicopter.DOMoveY(bonusHelicopter.transform.localPosition.y + 5, 2).SetEase(Ease.InQuart);*/
 
         await Task.Delay(TimeSpan.FromSeconds(1f));
     }
