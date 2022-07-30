@@ -151,7 +151,8 @@ public class playerController : MonoBehaviour
                                 Rigidbody rb = box.AddComponent<Rigidbody>();
                                 if (rb == null)
                                     return;
-                                rb.AddExplosionForce(1000, currentPlatform.transform.position, 5);
+                                Vector3 explosionLocation = new Vector3(hitinfo.collider.transform.position.x, currentPlatform.transform.position.y, hitinfo.collider.transform.position.z);
+                                rb.AddExplosionForce(1000, explosionLocation, 8);
 
                             }
                             Destroy(hitinfo.collider.gameObject, 2f);
@@ -203,6 +204,7 @@ public class playerController : MonoBehaviour
         verticalMovementUnitVectorCalculator();
         transform.DOJump(landingPoint, 3, 1, 0.5f * 2f).SetEase(Ease.Linear);
         transform.DORotate(currentPlatform.transform.rotation.eulerAngles, 0.5f * 2f).SetEase(Ease.Linear).OnComplete(() => levelController.animateMoving());
+        //transform.DOLookAt(currentPlatform.transform.GetChild(levelController.platformParameters.endingPointIndex).transform.position, 1f).SetEase(Ease.Linear).OnComplete(() => levelController.animateMoving());
 
     }
 

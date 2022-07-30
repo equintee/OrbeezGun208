@@ -190,14 +190,11 @@ public class levelController : MonoBehaviour
         Transform playerParent = GameObject.FindGameObjectWithTag("Player").transform;
         Transform player = playerParent.transform.GetChild(0);
 
-        player.DOMoveX(pool.position.x, 0.5f).SetEase(Ease.Linear);
-        await playerParent.DOMoveZ(pool.position.z, 0.5f).SetEase(Ease.Linear).AsyncWaitForCompletion();
-        Debug.Log(pool.localPosition);
-        Debug.Log(playerParent.localPosition);
-        Debug.Log(player.localPosition);
+        player.DOMoveX(pool.position.x, 0.5f / 2).SetEase(Ease.Linear);
+        await playerParent.DOMoveZ(pool.position.z, 0.5f / 2).SetEase(Ease.Linear).AsyncWaitForCompletion();
 
         animator.SetTrigger("playerRefill");
-        await Task.Delay(TimeSpan.FromSeconds(2f));
+        await Task.Delay(TimeSpan.FromSeconds(2f / 2));
         updateBulletCount(bulletCount);
         animateMoving();
 
