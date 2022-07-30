@@ -113,10 +113,11 @@ public class playerController : MonoBehaviour
                         cameraController.playerFire();
 
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
+                        bulletShoot.transform.localScale = Vector3.zero;
 
                         levelController.updateBulletCount(-1);
-                        
 
+                        bulletShoot.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.3f).SetEase(Ease.InCubic);
                         bulletShoot.transform.DOMove(hitinfo.point, 0.3f).OnComplete(() => completeShooting(bulletShoot, enemy));
   
                     }
@@ -126,7 +127,10 @@ public class playerController : MonoBehaviour
 
                         GameObject bulletShoot = Instantiate(bullet, gun.position + new Vector3(0, 0, 0.45f), Quaternion.identity, transform);
                         levelController.updateBulletCount(-1);
-                        
+
+                        bulletShoot.transform.localScale = Vector3.zero;
+                        bulletShoot.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.3f).SetEase(Ease.InCubic);
+
                         animator.SetTrigger("playerShoot");
                         cameraController.playerFire();
 
@@ -215,30 +219,35 @@ public class playerController : MonoBehaviour
         Transform bonusHelicopter = levelController.bonusHelicopter;
         Transform startOfRamp = bonusHelicopter.GetChild(0);
         Transform endOfRamp = bonusHelicopter.GetChild(1);
-        Transform leftFan = bonusHelicopter.GetChild(2);
-        Transform rightFan = bonusHelicopter.GetChild(3);
-
+        Transform planeDoor = bonusHelicopter.GetChild(2);
+        Transform leftFan = bonusHelicopter.GetChild(3);
+        Transform rightFan = bonusHelicopter.GetChild(4);
+        
         Camera.main.transform.parent = null;
 
         //Rotation of fans
-        leftFan.DOLocalRotate(new Vector3(0, 0, 360000), 50f, RotateMode.FastBeyond360).SetEase(Ease.OutCubic);
-
-
-
-        rightFan.DOLocalRotate(new Vector3(0, 0, 360000), 50f, RotateMode.FastBeyond360).SetEase(Ease.OutCubic);
+        leftFan.DOLocalRotate(new Vector3(0, 0, 360), 2f, RotateMode.FastBeyond360).SetEase(Ease.InCubic).OnComplete( () => leftFan.DOLocalRotate(new Vector3(0,0, 360), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1));
+        rightFan.DOLocalRotate(new Vector3(0, 0, 360), 2f, RotateMode.FastBeyond360).SetEase(Ease.InCubic).OnComplete(() => rightFan.DOLocalRotate(new Vector3(0, 0, 360), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1)); ;
         
-
-        Debug.Log("asd");
-
+        //Move player in Plane
         await playerModel.transform.DOMove(startOfRamp.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         playerModel.transform.DOMove(endOfRamp.position, 1f).SetEase(Ease.Linear);
         await Task.Delay(TimeSpan.FromSeconds(0.65f));
         playerModel.gameObject.SetActive(false);
+        planeDoor.DOLocalRotate(new Vector3(0, 0, 153), 1.5f).SetEase(Ease.InCubic);
+
+        //Plane movement
+        bonusHelicopter.DOLocalMoveX(bonusHelicopter.localPosition.x + 1, 1f).SetEase(Ease.InCubic);
+        await bonusHelicopter.DOLocalMoveY(bonusHelicopter.localPosition.y + 3, 1f).SetEase(Ease.InCubic).AsyncWaitForCompletion();
+        bonusHelicopter.DOLocalRotate(new Vector3(-15, 0, 0), 1f).SetEase(Ease.InCubic);
+        bonusHelicopter.DOLocalMoveX(bonusHelicopter.localPosition.x + 5, 1f).SetEase(Ease.Linear);
+        bonusHelicopter.DOLocalMoveY(bonusHelicopter.localPosition.y + 3, 1f).SetEase(Ease.Linear);
+
 
         /*bonusHelicopter.DORotate(new Vector3(10, 0, 0), 1).SetEase(Ease.InQuart);
         bonusHelicopter.DOMoveY(bonusHelicopter.transform.localPosition.y + 5, 2).SetEase(Ease.InQuart);*/
 
-        await Task.Delay(TimeSpan.FromSeconds(1f));
+        await Task.Delay(TimeSpan.FromSeconds(0.5f));
     }
 
     private void generateRandomBullet()
