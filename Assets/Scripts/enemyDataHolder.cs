@@ -39,7 +39,7 @@ public class enemyDataHolder : MonoBehaviour
         {
             DOTween.Kill(transform);
             animator.SetTrigger("enemyHit");
-            Invoke("moveEnemy", 1.57f);
+            Invoke("moveEnemy", 1f);
         }
 
         if (health <= 0)
@@ -96,7 +96,11 @@ public class enemyDataHolder : MonoBehaviour
 
     private void moveEnemy()
     {
-        transform.DOMove(playerModel.position, moveSpeed).SetSpeedBased();
+        if (!isDead)
+        {
+            GetComponent<Animator>().SetTrigger("enemyRun");
+            transform.DOMove(playerModel.position, moveSpeed).SetSpeedBased();
+        }
     }
 
     public void decrementHealth()
@@ -112,6 +116,7 @@ public class enemyDataHolder : MonoBehaviour
         return health;
     }
 
+    
 
     
 }

@@ -998,6 +998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4786772690043638241, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
 --- !u!1 &575900439
@@ -1335,7 +1339,7 @@ MonoBehaviour:
     tapToStart: {fileID: 1785714536}
     scoreUI: {fileID: 1085403783}
     gameplayCanvas: {fileID: 1037754700}
-  bonusHelicopter: {fileID: 819838259}
+  bonusHelicopter: {fileID: 1526086400}
   platformParameters:
     platformParent: {fileID: 1548389927}
     landingPointIndex: 0
@@ -1363,6 +1367,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1548389928}
     m_Modifications:
+    - target: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 7224300215459704097, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -1488,11 +1504,6 @@ Transform:
   m_Father: {fileID: 1933040887}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &819838259 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7224300215459704097, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
-  m_PrefabInstance: {fileID: 792460690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &826747536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2523,6 +2534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4786772690043638241, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1537144ca42dd45a59ce4d19cd4bd0, type: 3}
 --- !u!4 &1362934499 stripped
@@ -2736,6 +2751,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4afa8d2e3b16ec4bbd1acc28ad910b6, type: 3}
+--- !u!4 &1526086400 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6830404785658495494, guid: 91ca791416eb2274182b88a81172b3a9, type: 3}
+  m_PrefabInstance: {fileID: 792460690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1548389927
 GameObject:
   m_ObjectHideFlags: 0
