@@ -228,9 +228,12 @@ public class playerController : MonoBehaviour
         //Rotation of fans
         leftFan.DOLocalRotate(new Vector3(0, 0, 360), 2f, RotateMode.FastBeyond360).SetEase(Ease.InCubic).OnComplete( () => leftFan.DOLocalRotate(new Vector3(0,0, 360), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1));
         rightFan.DOLocalRotate(new Vector3(0, 0, 360), 2f, RotateMode.FastBeyond360).SetEase(Ease.InCubic).OnComplete(() => rightFan.DOLocalRotate(new Vector3(0, 0, 360), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1)); ;
-        
+
         //Move player in Plane
+        playerModel.transform.DOLookAt(startOfRamp.position, 1f).SetEase(Ease.OutCubic);
         await playerModel.transform.DOMove(startOfRamp.position, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+
+        playerModel.transform.DOLookAt(endOfRamp.position, 1f).SetEase(Ease.OutCubic);
         playerModel.transform.DOMove(endOfRamp.position, 1f).SetEase(Ease.Linear);
         await Task.Delay(TimeSpan.FromSeconds(0.65f));
         playerModel.gameObject.SetActive(false);
